@@ -1,0 +1,1 @@
+from cristian_coin import app
