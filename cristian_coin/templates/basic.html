@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/cris_style.css">
+    <link rel="stylesheet" href="/static/css/pico.css">
+    <title>Document</title>
+</head>
+<body class="container">
+    <header>
+        <div>
+            <header>            
+                <h1>Cristian Abstract Company</h1>
+                <p>Smoke sellers since 1988</p> 
+            </header>
+            <h2>Crypto metal virtual coin</h2>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/purchase">Compra</a></li>
+            <li><a href="/status">Status</a></li>
+        </ul>
+    </nav>
+    <section>
+        {% block pageContent %}{% endblock %}
+    </section>
+    <footer>
+        <div>&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</div>
+    </footer>
+</body>
+</html>

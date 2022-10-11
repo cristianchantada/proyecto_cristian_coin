@@ -3,4 +3,4 @@ from flask import render_template
 
 @app.route("/")
 def index():
-    return "Servidor preparado y listo"
+    return render_template("basic.html")
