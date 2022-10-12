@@ -1,0 +1,23 @@
+{% extends "basic.html" %}
+
+{% block pageContent %}
+
+<form action="/purchase" method="post">
+    {{ operation_form.csrf_token }}
+
+    {{ operation_form.from_sell.label}}
+    {{ operation_form.from_sell}}
+
+    {{ operation_form.to_buy.label}}
+    {{ operation_form.to_buy}}
+
+    {{ operation_form.q_buy.label}}
+    {{ operation_form.q_buy}}
+
+    {{operation_form.calc_submit(class="material-symbols-outlined">calculate)}}
+
+    {{operation_form.accept_submit(class="material-symbols-outlined">done_outline)}}
+
+</form>
+
+{% endblock %}

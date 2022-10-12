@@ -5,19 +5,24 @@
 <table>
     <thead>
         <tr>
-            <td>Fecha</td>
-            <td>Hora</td>
-            <td>Venta (from)</td>
-            <td>Cantidad venta</td>
-            <td>Compra (to)</td>
-            <td>Cantidad compra</td>
-            <td>Precio unitario</td>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Venta (from)</th>
+            <th>Cantidad venta</th>
+            <th>Compra (to)</th>
+            <th>Cantidad compra</th>
+            <th>Precio unitario</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-
-        </tr>
+        {% for register in consult_all %}
+            <tr>
+                {% for column in register %}
+                     <td>{{ column }}</td>
+                {% endfor %}
+                    <td>Aquí va el precio unitario</td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 
