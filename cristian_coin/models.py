@@ -11,7 +11,7 @@ def select_all():
 
     con = sqlite3.connect(DATA_BASE)
     cur = con.cursor()
-    cur.execute("SELECT date, hour, from_sell, q_sell, to_buy, q_buy FROM operations_table;")
+    cur.execute("SELECT date, time, moneda_from, cantidad_from, moneda_to, cantidad_to FROM operations_table;")
 
     selection = cur.fetchall()
 

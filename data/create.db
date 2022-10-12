@@ -1,10 +1,10 @@
 CREATE TABLE "operations_table" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"date"	TEXT NOT NULL,
-	"hour"	TEXT NOT NULL,
-	"from_sell"	TEXT NOT NULL,
-	"q_sell"	INTEGER NOT NULL,
-	"to_buy"	TEXT NOT NULL,
-	"q_buy"	INTEGER NOT NULL,
+	"time"	TEXT NOT NULL,
+	"moneda_from"	TEXT NOT NULL,
+	"cantidad_from"	REAL NOT NULL,
+	"moneda_to"	TEXT NOT NULL,
+	"cantidad_to"	REAL NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )

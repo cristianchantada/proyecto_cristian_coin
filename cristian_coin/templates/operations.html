@@ -1,23 +1,25 @@
 {% extends "basic.html" %}
 
 {% block pageContent %}
+<section>
 
 <form action="/purchase" method="post">
     {{ operation_form.csrf_token }}
 
-    {{ operation_form.from_sell.label}}
-    {{ operation_form.from_sell}}
+    {{ operation_form.moneda_from.label}}
+    {{ operation_form.moneda_from}}
 
-    {{ operation_form.to_buy.label}}
-    {{ operation_form.to_buy}}
+    {{ operation_form.moneda_to.label}}
+    {{ operation_form.moneda_to}}
 
-    {{ operation_form.q_buy.label}}
-    {{ operation_form.q_buy}}
+    {{ operation_form.cantidad_from.label}}
+    {{ operation_form.cantidad_from}}
 
-    {{operation_form.calc_submit(class="material-symbols-outlined">calculate)}}
+    <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
 
-    {{operation_form.accept_submit(class="material-symbols-outlined">done_outline)}}
+    <button type="submit"><span class="material-symbols-outlined">done_outline</span></button>
 
 </form>
 
+</section>
 {% endblock %}

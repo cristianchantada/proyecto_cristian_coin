@@ -1,7 +1,7 @@
 from cristian_coin import app
 from flask import render_template, request
 from cristian_coin.models import select_all
-from cristian_coin.forms import purchaseForm
+from cristian_coin.forms import PurchaseForm
 
 @app.route("/")
 def index():
@@ -10,9 +10,13 @@ def index():
 
 @app.route("/purchase")
 def coin_operation():
+    operation = PurchaseForm
     if request.method == "GET":
-        operation_form = purchaseForm
-        return render_template("operations.html", operation_form= operation_form)
+        return render_template("operations.html", pageTitle= "Compra", operation_form= operation)
     else:
         pass
+
+@app.route("/status")
+def wallet_status():
+    return render_template("status.html", pageTitle= "Monedero")
 

@@ -1,11 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, SubmitField
+from wtforms import FloatField, SelectField
 from wtforms.validators import DataRequired
 
-class purchaseForm(FlaskForm):
+class PurchaseForm(FlaskForm):
     
-    from_sell = FloatField("From", validators=[DataRequired()])
-    to_buy = FloatField("to", validators=[DataRequired()])
-    q_buy = FloatField("Q", validators=[DataRequired()])
-    calc_submit = SubmitField()
-    accept_submit = SubmitField()
+    moneda_from = SelectField(choices=["EUR", "BTC", "ETH", "USDT", "BNB", "XRP", "ADA", "SOL", "DOT", "MATIC"], validate_choice=True)
+    moneda_to = SelectField(choices=["EUR", "BTC", "ETH", "USDT", "BNB", "XRP", "ADA", "SOL", "DOT", "MATIC"], validate_choice=True)
+    cantidad_from = FloatField("Q", validators=[DataRequired()])
