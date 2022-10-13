@@ -16,16 +16,17 @@
             {{ operation_form.cantidad_from.label}}
             {{ operation_form.cantidad_from}}
 
+            {{ operation_form.quantity.label}}
+            {{ operation_form.quantity}}
+
             <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
 
-            <table>
-                <tbody>
-                    <tr>{{ quantity }}</tr>
-                    <tr>{{ unitary_prize }}</tr>
-                </tbody>
-            </table>
         </div>
-        <div>
+        <div class="grid">
+            {{ operation_form.unitary_prize.label}}
+            {{ operation_form.unitary_prize}}
+        </div>
+        <div class="grid">
             <button type="submit" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
         </div>
 

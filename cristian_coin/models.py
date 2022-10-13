@@ -22,7 +22,7 @@ def choose_my_coins():
 
     return my_dicts_coins
 
-def dict_moneda_from(moneda_to, my_dicts_coins):
+def dict_moneda(moneda_to, my_dicts_coins):
     for dict_coin in my_dicts_coins:
         if dict_coin['asset_id_quote'] == moneda_to:
             dict_coin_true = dict_coin
