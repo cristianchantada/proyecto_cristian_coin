@@ -16,19 +16,27 @@
             {{ operation_form.cantidad_from.label}}
             {{ operation_form.cantidad_from}}
 
+            {# hacer el ocultamiento de la cantidad #}
+
             {{ operation_form.quantity.label}}
-            {{ operation_form.quantity}}
+            {{ operation_form.quantity(value=quantity)}}
+            {{ operation_form.quantity.data}}
 
             <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
 
         </div>
         <div class="grid">
-            {{ operation_form.unitary_prize.label}}
-            {{ operation_form.unitary_prize}}
+            {{ operation_form.unitary_prize.label }}
+            {{ operation_form.unitary_prize(value=unitary_prize) }}
+            {{ operation_form.unitary_prize.data }}
+            
+
         </div>
         <div class="grid">
             <button type="submit" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
         </div>
+        <input type="text", value="">
+
 
        
 
