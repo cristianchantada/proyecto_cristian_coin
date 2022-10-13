@@ -7,7 +7,11 @@ header, footer {
 
 body {
     min-height: 100vh;
-    grid-template-rows: auto 20px auto auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
     margin: 0;
 }
 
+.inactive {
+    display: none;
+}

@@ -2,24 +2,35 @@
 
 {% block pageContent %}
 <section>
+    <form action="/purchase" method="post">
+        {{ operation_form.csrf_token }}
 
-<form action="/purchase" method="post">
-    {{ operation_form.csrf_token }}
+        <div class="grid">
+            {{ operation_form.moneda_from.label }}
+            {{ operation_form.moneda_from }}
 
-    {{ operation_form.moneda_from.label}}
-    {{ operation_form.moneda_from}}
+            {{ operation_form.moneda_to.label }}
+            {{ operation_form.moneda_to }}
+        </div>
+        <div class="grid">
+            {{ operation_form.cantidad_from.label}}
+            {{ operation_form.cantidad_from}}
 
-    {{ operation_form.moneda_to.label}}
-    {{ operation_form.moneda_to}}
+            <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
 
-    {{ operation_form.cantidad_from.label}}
-    {{ operation_form.cantidad_from}}
+            <table>
+                <tbody>
+                    <tr>{{ quantity }}</tr>
+                    <tr>{{ unitary_prize }}</tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button type="submit" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+        </div>
 
-    <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
+       
 
-    <button type="submit"><span class="material-symbols-outlined">done_outline</span></button>
-
-</form>
-
+    </form>
 </section>
 {% endblock %}
