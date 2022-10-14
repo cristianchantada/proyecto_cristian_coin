@@ -1,7 +1,7 @@
 from cristian_coin import app
 from flask import render_template, request
 from cristian_coin.models import select_all, calculate
-from cristian_coin.forms import PurchaseForm
+from cristian_coin.forms import PurchaseForm, ValidationForm
 
 @app.route("/")
 def index():
@@ -11,17 +11,27 @@ def index():
 @app.route("/purchase", methods=["GET", "POST"])
 def coin_operation():
     operation = PurchaseForm()
-    validation = PurchaseForm()
-
-    if request.method == "GET":
-        return render_template("operations.html", pageTitle= "Compra", operation_form= operation, validation_form= operation)
+    
+    if request.method == "GET":      
+        return render_template("operations.html", pageTitle= "Compra", operation_form= operation)
     else:
-        result = calculate(operation.data["moneda_to"], operation.data["moneda_from"], operation.data["quantity_from"])
-        quantity_to = result["quantity_to"]
-        unitary_prize = result["unitary_prize"]
+        if request.form["enviar"] == "calculate":         
+                result = calculate(operation.data["moneda_to"], operation.data["moneda_from"], operation.data["quantity_from"])
+                quantity_to = result["quantity_to"]
+                unitary_prize = result["unitary_prize"]
 
-        return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize, validate_form = validation)
+                dict_for_validate = {"moneda_from": operation.data["moneda_from"],\
+                    "moneda_to": operation.data["moneda_to"],\
+                    "quantity_from": operation.data["quantity_from"] ,\
+                    "quantity_to": result["quantity_to"] ,\
+                    "unitary_prize": result["unitary_prize"]}
 
+                return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize)
+        if request.form["enviar"] == "validate":
+            if operation.data == dict_for_validate:
+                print("ok")
+            else:
+                print("mal")
 
 
 @app.route("/status")

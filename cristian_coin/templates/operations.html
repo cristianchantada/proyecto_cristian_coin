@@ -19,30 +19,14 @@
             {{ operation_form.quantity_to.label}}
             {{ operation_form.quantity_to(value=quantity_to, type="hidden")}}
             {{ operation_form.quantity_to.data}}
-
-            <button type="submit"><span class="material-symbols-outlined">calculate</span></button>
-
+            <input type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></input>
         </div>
         <div class="grid">
             {{ operation_form.unitary_prize.label }}
             {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
             {{ operation_form.unitary_prize.data }}
-        
+        <div class="grid">
+            <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
         </div>
-        <div>
-        <form action="/purchase" method="post"></form>
-
-            {{ validation_form.csrf_token }}
-
-            {{ validation_form.moneda_from }}
-            {{ validation_form.moneda_to }}
-            {{ validation_form.quantity_from }}
-            {{ validation_form.quantity_to (value=quantity_to, type="hidden") }}
-            {{ validation_form.unitary_prize (value=unitary_prize, type="hidden") }}
-        </div>
-            <div class="grid">
-                <button type="submit" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
-            </div>
-    </form>
 </section>
 {% endblock %}
