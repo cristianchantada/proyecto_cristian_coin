@@ -24,6 +24,16 @@ def select_all():
 
     return selection
 
+def commit_operation(values_dict):
+
+    con = sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("INSERT INTO operations_table (")
+
+    con.commit()
+    con.close()
+    
+
 
 
 

@@ -11,12 +11,11 @@ class PurchaseForm(FlaskForm):
     unitary_prize = FloatField("Precio Unitario", validators=[])
 
 class ValidationForm(FlaskForm):
-    
-    moneda_from_validated = StringField("Vender")
-    moneda_to_validated = StringField("Comprar")
-    quantity_from_validated = FloatField("Cantidad a vender", validators=[])
-    quantity_to_validated = FloatField("Cantidad que compro", validators=[])
-    unitary_prize_validated = FloatField("Precio Unitario", validators=[])
+    moneda_from = StringField("Validación vender", validators=[])
+    moneda_to = StringField("Validación comprar", validators=[])
+    quantity_from = FloatField("Validación cantidad a vender", validators=[])
+    quantity_to = FloatField("Validación antidad que compro", validators=[])
+    unitary_prize = FloatField("Valicdación precio Unitario", validators=[])
 
 
 

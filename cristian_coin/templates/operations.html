@@ -6,10 +6,10 @@
         {{ operation_form.csrf_token }}
 
         <div class="grid">
-            {{ operation_form.moneda_from.label }}
+            {{ operation_form.moneda_from.label (placeholder="Seleccione divisa a vender") }}
             {{ operation_form.moneda_from }}
 
-            {{ operation_form.moneda_to.label }}
+            {{ operation_form.moneda_to.label (placeholder="Seleccione divisa a comprar") }}
             {{ operation_form.moneda_to }}
         </div>
         <div class="grid">
@@ -19,14 +19,30 @@
             {{ operation_form.quantity_to.label}}
             {{ operation_form.quantity_to(value=quantity_to, type="hidden")}}
             {{ operation_form.quantity_to.data}}
-            <input type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></input>
+            <button type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></button>
         </div>
         <div class="grid">
             {{ operation_form.unitary_prize.label }}
             {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
             {{ operation_form.unitary_prize.data }}
+        </div>
+
+
         <div class="grid">
             <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
         </div>
+        <div class="grid">
+            {{ validation_form.moneda_from (value=moneda_from_v) }}
+            {{ validation_form.moneda_from.data }}
+            {{ validation_form.moneda_to (value=moneda_to_v) }}
+            {{ validation_form.moneda_to.data }}
+            {{ validation_form.quantity_from (value=quantity_from_v) }}
+            {{ validation_form.quantity_from.data }}
+            {{ validation_form.quantity_to (value=quantity_to) }}
+            {{ validation_form.quantity_to.data }}
+            {{ validation_form.unitary_prize (value= unitary_prize) }}
+            {{ validation_form.unitary_prize.data }}
+        </div>
+    </form>
 </section>
 {% endblock %}

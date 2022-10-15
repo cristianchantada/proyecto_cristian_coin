@@ -1,6 +1,7 @@
+from sre_parse import FLAGS
 from cristian_coin import app
-from flask import render_template, request
-from cristian_coin.models import select_all, calculate
+from flask import render_template, request, flash, redirect, url_for
+from cristian_coin.models import commit_operation, select_all, calculate
 from cristian_coin.forms import PurchaseForm, ValidationForm
 
 @app.route("/")
@@ -11,27 +12,30 @@ def index():
 @app.route("/purchase", methods=["GET", "POST"])
 def coin_operation():
     operation = PurchaseForm()
+    validation = ValidationForm()
     
     if request.method == "GET":      
-        return render_template("operations.html", pageTitle= "Compra", operation_form= operation)
+        return render_template("operations.html", pageTitle= "Compra", operation_form= operation, validation_form= validation)
     else:
         if request.form["enviar"] == "calculate":         
-                result = calculate(operation.data["moneda_to"], operation.data["moneda_from"], operation.data["quantity_from"])
-                quantity_to = result["quantity_to"]
-                unitary_prize = result["unitary_prize"]
+            result = calculate(operation.data["moneda_to"], operation.data["moneda_from"], operation.data["quantity_from"])
+            quantity_to = result["quantity_to"]
+            unitary_prize = result["unitary_prize"]
 
-                dict_for_validate = {"moneda_from": operation.data["moneda_from"],\
-                    "moneda_to": operation.data["moneda_to"],\
-                    "quantity_from": operation.data["quantity_from"] ,\
-                    "quantity_to": result["quantity_to"] ,\
-                    "unitary_prize": result["unitary_prize"]}
+            return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize, moneda_from_v=operation.data["moneda_from"], moneda_to_v= operation.data["moneda_to"], quantity_from_v= operation.data["quantity_from"],  validation_form = validation)
+
+        if request.form["enviar"] == "validate":
+
+
+            if operation.data == validation.data:
+                commit_operation(validation.data)
+                flash("La operación de compra de monedas ha sido realizada con éxito")
+                return redirect(url_for("index"))
+                
+            else:
+                flash("La operación de compra a realizar no coincide con los valores calculados. Por favor, recalcule de nuevo para validar la operación correctamente.")
 
                 return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize)
-        if request.form["enviar"] == "validate":
-            if operation.data == dict_for_validate:
-                print("ok")
-            else:
-                print("mal")
 
 
 @app.route("/status")
