@@ -8,3 +8,12 @@ CREATE TABLE "operations_table" (
 	"cantidad_to"	REAL NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
+
+CREATE TABLE "stand_by_operation_table" (
+	"moneda_from"	TEXT,
+	"quantity_from"	INTEGER,
+	"moneda_to"	TEXT,
+	"quantity_to"	INTEGER,
+	"date"	TEXT,
+	"time"	INTEGER
+, "unitary_prize"	INTEGER)

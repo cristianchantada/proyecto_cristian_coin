@@ -6,28 +6,34 @@
         {{ operation_form.csrf_token }}
 
         <div class="grid">
-            {{ operation_form.moneda_from.label (placeholder="Seleccione divisa a vender") }}
+            {{ operation_form.moneda_from.label }}
             {{ operation_form.moneda_from }}
 
-            {{ operation_form.moneda_to.label (placeholder="Seleccione divisa a comprar") }}
+            {{ operation_form.moneda_to.label }}
             {{ operation_form.moneda_to }}
         </div>
         <div class="grid">
             {{ operation_form.quantity_from.label}}
-            {{ operation_form.quantity_from}}
+            {{ operation_form.quantity_from }}
 
             {{ operation_form.quantity_to.label}}
-            {{ operation_form.quantity_to(value=quantity_to, type="hidden")}}
+            {{ operation_form.quantity_to (value=quantity_to)}}
             {{ operation_form.quantity_to.data}}
             <button type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></button>
         </div>
         <div class="grid">
             {{ operation_form.unitary_prize.label }}
-            {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
+            {{ operation_form.unitary_prize(value=unitary_prize) }}
             {{ operation_form.unitary_prize.data }}
         </div>
-
-
+        <div class="grid">
+            {{ operation_form.date.label }}
+            {{ operation_form.date(value=date) }}
+            {{ operation_form.date.data }}
+            {{ operation_form.time.label }}
+            {{ operation_form.time(value=time) }}
+            {{ operation_form.time.data }}
+        </div>
         <div class="grid">
             <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
         </div>
@@ -42,6 +48,12 @@
             {{ validation_form.quantity_to.data }}
             {{ validation_form.unitary_prize (value= unitary_prize) }}
             {{ validation_form.unitary_prize.data }}
+            {{ validation_form.date.label }}
+            {{ validation_form.date(value=date) }}
+            {{ validation_form.date.data }}
+            {{ validation_form.time.label }}
+            {{ validation_form.time(value=time) }}
+            {{ validation_form.time.data }}
         </div>
     </form>
 </section>

@@ -8,9 +8,38 @@ def calculate(coin_from, coin_to, quantity_from):
     result_eur_rate = get("https://rest.coinapi.io/v1/exchangerate/EUR/{}?apikey={}".format(coin_from, API_KEY))
     result_eur_rate = result_eur_rate.json()
 
-    result ={"quantity_to" : quantity_from / result["rate"]  , 'unitary_prize': 1 / result_eur_rate["rate"] }
+    quantity_to = quantity_from / result["rate"]
+    unitary_prize = 1 / result_eur_rate["rate"]
+
+    date_and_time = result["time"]
+    date = date_and_time[:10]
+    time = date_and_time[11:19]
+
+    con = sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("INSERT INTO stand_by_operation_table (moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize) VALUES (?,?,?,?,?,?,?)", (coin_from, quantity_from, coin_to, quantity_to, date, time, unitary_prize))
+
+    con.commit()
+    con.close()
+
+    result ={"quantity_to" : quantity_to  , 'unitary_prize': unitary_prize, "date": date, "time": time }
     
     return result
+
+def secure_operation(dict_validated_operation):
+
+    con =sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table")
+
+    save_operation = cur.fetchone()
+
+
+
+
+    con.close()
+
+    return save_operation
 
 def select_all():
 
@@ -28,10 +57,13 @@ def commit_operation(values_dict):
 
     con = sqlite3.connect(DATA_BASE)
     cur = con.cursor()
-    cur.execute("INSERT INTO operations_table (")
+    cur.execute("INSERT INTO operations_table (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to) VALUES (?,?,?,?,?,?)", (values_dict["date"], values_dict["time"], values_dict["moneda_from"], values_dict["quantity_from"], values_dict["moneda_to"], values_dict["quantity_to"]))
 
     con.commit()
     con.close()
+
+def my_wallet():
+    pass
     
 
 

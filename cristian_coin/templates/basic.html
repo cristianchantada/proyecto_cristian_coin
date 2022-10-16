@@ -27,6 +27,17 @@
     </section>
     <section>
         {% block pageContent %}{% endblock %}
+        <div class="grid">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for mssgs in messages %}
+                            <li>{{ mssgs }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
     </section>
     <footer>
         <div>&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</div>
