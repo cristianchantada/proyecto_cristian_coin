@@ -12,15 +12,6 @@ class PurchaseForm(FlaskForm):
     date = StringField("Fecha", validators=[])
     time = StringField("Hora", validators=[])
 
-class ValidationForm(FlaskForm):
-    moneda_from = StringField("Validación vender", validators=[])
-    moneda_to = StringField("Validación comprar", validators=[])
-    quantity_from = FloatField("Validación cantidad a vender", validators=[])
-    quantity_to = FloatField("Validación antidad que compro", validators=[])
-    unitary_prize = FloatField("Valicdación precio Unitario", validators=[])
-    date = StringField("Fecha", validators=[])
-    time = StringField("Hora", validators=[])
-
     # validators.NumberRange(min=0, max=0, mensaje=ninguno)
 
 

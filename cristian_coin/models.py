@@ -1,19 +1,27 @@
 from config import API_KEY, DATA_BASE
 import sqlite3
 from requests import get
+from datetime import datetime
 
 def calculate(coin_from, coin_to, quantity_from):
     result = get("https://rest.coinapi.io/v1/exchangerate/{}/{}?apikey={}".format(coin_from, coin_to, API_KEY))
     result = result.json()
-    result_eur_rate = get("https://rest.coinapi.io/v1/exchangerate/EUR/{}?apikey={}".format(coin_from, API_KEY))
-    result_eur_rate = result_eur_rate.json()
 
-    quantity_to = quantity_from / result["rate"]
-    unitary_prize = 1 / result_eur_rate["rate"]
+    quantity_to = quantity_from * result["rate"]
+    unitary_prize = quantity_from / quantity_to
 
-    date_and_time = result["time"]
-    date = date_and_time[:10]
-    time = date_and_time[11:19]
+    hora_aquí = datetime.now().isoformat()
+    result["time"] = hora_aquí
+
+
+    date = hora_aquí[:10]
+    time = hora_aquí[11:19]
+
+    con =sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("DELETE FROM stand_by_operation_table;")
+    con.commit()
+    con.close()
 
     con = sqlite3.connect(DATA_BASE)
     cur = con.cursor()
@@ -30,16 +38,23 @@ def secure_operation(dict_validated_operation):
 
     con =sqlite3.connect(DATA_BASE)
     cur = con.cursor()
-    cur.execute("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table")
+    cur.execute("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table;")
 
     save_operation = cur.fetchone()
 
-
-
-
     con.close()
 
-    return save_operation
+    tuple_validated_operation = (dict_validated_operation["moneda_from"], dict_validated_operation["quantity_from"], dict_validated_operation["moneda_to"],dict_validated_operation["quantity_to"], dict_validated_operation["date"], dict_validated_operation["time"], dict_validated_operation["unitary_prize"])
+
+    con =sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("DELETE FROM stand_by_operation_table;")
+    con.commit()
+    con.close()
+
+    if save_operation == tuple_validated_operation:
+        return True
+    return False 
 
 def select_all():
 

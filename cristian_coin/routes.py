@@ -1,7 +1,7 @@
 from cristian_coin import app
 from flask import render_template, request, flash, redirect, url_for
 from cristian_coin.models import commit_operation, select_all, calculate, my_wallet, secure_operation
-from cristian_coin.forms import PurchaseForm, ValidationForm
+from cristian_coin.forms import PurchaseForm
 
 @app.route("/")
 def index():
@@ -11,37 +11,28 @@ def index():
 @app.route("/purchase", methods=["GET", "POST"])
 def coin_operation():
     operation = PurchaseForm()
-    validation = ValidationForm()
     
     if request.method == "GET":      
-        return render_template("operations.html", pageTitle= "Compra", operation_form= operation, validation_form= validation)
+        return render_template("operations.html", pageTitle= "Compra", operation_form= operation)
     else:
         if request.form["enviar"] == "calculate":         
             result = calculate(operation.data["moneda_from"], operation.data["moneda_to"], operation.data["quantity_from"])
             quantity_to = result["quantity_to"]
             unitary_prize = result["unitary_prize"]
 
-            return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize, moneda_from_v=operation.data["moneda_from"], moneda_to_v= operation.data["moneda_to"], quantity_from_v= operation.data["quantity_from"],  validation_form = validation, date = result["date"], time= result["time"])
+            return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize, date = result["date"], time= result["time"])
 
         if request.form["enviar"] == "validate":
 
             comprobation = secure_operation(operation.data)
 
-            
-
-            if operation.data == validation.data:
-                if operation.validate():
-                    commit_operation(validation.data)
+            if comprobation and operation.validate():
+                    commit_operation(operation.data)
                     flash("La operación de compra de monedas ha sido realizada con éxito")
                     return redirect(url_for("index"))
-                else:
-                    pass
-                
             else:
                 flash("La operación de compra a realizar no coincide con los valores calculados. Por favor, recalcule de nuevo para validar la operación correctamente.")
-
-                return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= quantity_to, unitary_prize= unitary_prize)
-
+                return render_template("operations.html", pageTitle= "Compra", operation_form= operation)
 
 @app.route("/status")
 def wallet_status():
