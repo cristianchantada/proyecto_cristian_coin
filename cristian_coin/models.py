@@ -60,7 +60,7 @@ def select_all():
 
     con = sqlite3.connect(DATA_BASE)
     cur = con.cursor()
-    cur.execute("SELECT date, time, moneda_from, cantidad_from, moneda_to, cantidad_to FROM operations_table;")
+    cur.execute("SELECT date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, unitary_prize FROM operations_table;")
 
     selection = cur.fetchall()
 
@@ -72,40 +72,60 @@ def commit_operation(values_dict):
 
     con = sqlite3.connect(DATA_BASE)
     cur = con.cursor()
-    cur.execute("INSERT INTO operations_table (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to) VALUES (?,?,?,?,?,?)", (values_dict["date"], values_dict["time"], values_dict["moneda_from"], values_dict["quantity_from"], values_dict["moneda_to"], values_dict["quantity_to"]))
+    cur.execute("INSERT INTO operations_table (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, unitary_prize) VALUES (?,?,?,?,?,?,?)", (values_dict["date"], values_dict["time"], values_dict["moneda_from"], values_dict["quantity_from"], values_dict["moneda_to"], values_dict["quantity_to"], values_dict["unitary_prize"]))
 
     con.commit()
     con.close()
 
 def my_wallet():
-    pass
     
+    # Cálculo de lo invertido en €:
 
+    con = sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("SELECT sum(cantidad_from) FROM operations_table WHERE moneda_from = 'EUR'")
+    investment_eur = cur.fetchall()
+    con.close()
 
+    # Cálculo de lo recuperado en €:
 
+    con = sqlite3.connect(DATA_BASE)
+    cur = con.cursor()
+    cur.execute("SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = 'EUR'")
+    recovered_eur = cur.fetchall()
+    con.close()
 
+    # Cálculo del valor de compra (invertido en € - recuperado en €)
 
-# En desuso:
-'''
-def choose_my_coins():
-    abreviations = ["EUR", "BTC", "ETH", "USDT", "BNB", "XRP", "ADA", "SOL", "DOT", "MATIC"]
-    result = get("https://rest.coinapi.io/v1/exchangerate/EUR?apikey={}".format(API_KEY))
-    all_coins = result.json()
-    
-    my_dicts_coins = []
+    purchase_value = investment_eur[0] - recovered_eur[0]
 
-    for rate in all_coins["rates"]:
-        if rate["asset_id_quote"] in abreviations:
-            my_dicts_coins.append(rate)
+    # Calculando el valor actual del wallet con la suma de todas las cryptomonedas, cantidad y precio actual:
 
-    eur_dict = {"asset_id_quote": "EUR", "rate": 1, "time": rate["time"]}
-    my_dicts_coins.append(eur_dict)
+    crypto_values = { "BTC": 0, "ETH": 0, "USDT": 0, "BNB": 0, "XRP": 0, "ADA": 0, "SOL": 0, "DOT": 0, "MATIC": 0}
 
-    return my_dicts_coins
+    for crypto in crypto_values:
+        con = sqlite3.connect(DATA_BASE)
+        cur = con.cursor()
+        cur.execute("SELECT ((Select sum(cantidad_to) FROM operations_table WHERE moneda_to = ?) - (select sum(cantidad_from) FROM operations_table WHERE moneda_from = ?))", (crypto, crypto))
 
-    def dict_moneda(moneda_to, my_dicts_coins):
-    for dict_coin in my_dicts_coins:
-        if dict_coin['asset_id_quote'] == moneda_to:
-            dict_coin_true = dict_coin
-            
-    return dict_coin_true '''
+        result_this_crypto = cur.fetchall()
+        crypto_values[crypto]= result_this_crypto
+        con.close()
+
+        # Revisar si "EUR" y crypto están bien colocadas:
+
+        result = get("https://rest.coinapi.io/v1/exchangerate/{}/EUR?apikey={}".format(crypto, API_KEY))
+        result = result.json()
+
+        crypto_values[crypto] = crypto_values * result["rate"]
+
+        # Iteración para sumar todos los valores de las distintas cryptos:
+
+    total_crypto_value = 0
+
+    for cantidad_misma_cripto in crypto_values.values():
+        total_crypto_value += cantidad_misma_cripto
+        
+    all = {"investment_eur": investment_eur[0], "recovered_eur": recovered_eur[0], "purchase_value": purchase_value, "Total_crypto_value": total_crypto_value}
+
+    return all

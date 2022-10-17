@@ -37,4 +37,4 @@ def coin_operation():
 @app.route("/status")
 def wallet_status():
     wallet_value = my_wallet()
-    return render_template("status.html", pageTitle= "Monedero")
+    return render_template("status.html", pageTitle= "Monedero", wallet_value= wallet_value)
