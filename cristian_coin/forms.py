@@ -11,7 +11,3 @@ class PurchaseForm(FlaskForm):
     unitary_prize = FloatField("Precio Unitario", validators=[])
     date = StringField("Fecha", validators=[])
     time = StringField("Hora", validators=[])
-
-    # validators.NumberRange(min=0, max=0, mensaje=ninguno)
-
-

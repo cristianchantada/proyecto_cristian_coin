@@ -7,7 +7,24 @@
         <th>ESTADO DE LA INVERSIÓN</th>
     </thead>
     <tbody>
-
+        <tbody>
+            <tr>
+                <td>Invertido</td>
+                <td>{{ wallet_value["investment_eur"] }}</td>
+            </tr>
+            <tr>
+                <td>Recuperado</td>
+                <td>{{ wallet_value["recovered_eur"] }}</td>
+            </tr>
+            <tr>
+                <td>Valor de compra</td>
+                <td>{{ wallet_value["purchase_value"] }}</td>
+            </tr>
+            <tr>
+                <td>Valor actual</td>
+                <td>{{ wallet_value["Total_crypto_value"] }}</td>
+            </tr>
+        </tbody>
     </tbody>
 
 </table>
