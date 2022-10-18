@@ -31,6 +31,7 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <ul>
+                        <li>EXISTEN ERRORES DETECTADOS EN EL FORMULARIO:</li>
                         {% for mssgs in messages %}
                             <li>{{ mssgs }}</li>
                         {% endfor %}

@@ -14,7 +14,7 @@
         </div>
         <div class="grid">
             {{ operation_form.quantity_from.label}}
-            {{ operation_form.quantity_from }}
+            {{ operation_form.quantity_from (type="number")}}
 
             {{ operation_form.quantity_to.label}}
             {{ operation_form.quantity_to (value=quantity_to)}}
