@@ -18,6 +18,10 @@ def calculate(coin_from, coin_to, quantity_from):
 
 
     result = get("https://rest.coinapi.io/v1/exchangerate/{}/{}?apikey={}".format(coin_from, coin_to, API_KEY))
+
+    if result.status_code != 200:
+        raise Exception(f"Error en la consulta de los valores da divisas: {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+
     result = result.json()
 
     quantity_to = quantity_from * result["rate"]
@@ -135,11 +139,13 @@ def my_wallet():
 
         # Revisar si "EUR" y crypto están bien colocadas:
 
-        
-
         result = get("https://rest.coinapi.io/v1/exchangerate/{}/EUR?apikey={}".format(crypto, API_KEY))
-        result = result.json()
 
+        if result.status_code != 200:
+            raise Exception(f"Error en la consulta de los valores da divisas: {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+
+        result = result.json()
+        
         crypto_values[crypto] = crypto_values[crypto] * result["rate"]
 
         # Iteración para sumar todos los valores de las distintas cryptos:
@@ -149,6 +155,6 @@ def my_wallet():
     for cantidad_misma_cripto in crypto_values.values():
         total_crypto_value += cantidad_misma_cripto
         
-    all = {"investment_eur": invest, "recovered_eur": recover, "purchase_value": purchase_value, "Total_crypto_value": total_crypto_value}
+    all = {"investment_eur": invest, "recovered_eur": recover, "purchase_value": purchase_value, "total_crypto_value": total_crypto_value}
 
     return all

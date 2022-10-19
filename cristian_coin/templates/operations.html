@@ -13,22 +13,26 @@
             {{ operation_form.moneda_to }}
         </div>
         <div class="grid">
-            {{ operation_form.quantity_from.label}}
-            {{ operation_form.quantity_from (type="number")}}
+            {{ operation_form.quantity_from.label }}
+            {{ operation_form.quantity_from (type="number") }}
 
-            {{ operation_form.quantity_to.label}}
-            {{ operation_form.quantity_to (value=quantity_to)}}
+            {{ operation_form.quantity_to.label }}
+            {{ quantity_to }}
+            {{ operation_form.quantity_to(value=quantity_to, type="hidden") }}
             <button type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></button>
         </div>
         <div class="grid">
             {{ operation_form.unitary_prize.label }}
-            {{ operation_form.unitary_prize(value=unitary_prize) }}
+            {{ unitary_prize }}
+            {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }} €
         </div>
         <div class="grid">
             {{ operation_form.date.label }}
-            {{ operation_form.date(value=date) }}
+            {{ date }}
+            {{ operation_form.date(value=date, type="hidden") }}
             {{ operation_form.time.label }}
-            {{ operation_form.time(value=time) }}
+            {{ time }}
+            {{ operation_form.time(value=time, type="hidden") }}
         </div>
         <div class="grid">
             <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>

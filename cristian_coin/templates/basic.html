@@ -19,9 +19,11 @@
     <section>
         <nav>
             <ul>
+                {% if %}
                 <li><a href="/">Inicio</a></li>
                 <li><a href="/purchase">Compra</a></li>
                 <li><a href="/status">Status</a></li>
+                {% endif %}
             </ul>
         </nav>
     </section>
@@ -31,7 +33,8 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <ul>
-                        <li>EXISTEN ERRORES DETECTADOS EN EL FORMULARIO:</li>
+                        <li>INFORMACIÓN DE LA OPERACIÓN:</li>
+                        <p></p>
                         {% for mssgs in messages %}
                             <li>{{ mssgs }}</li>
                         {% endfor %}

@@ -10,19 +10,23 @@
         <tbody>
             <tr>
                 <td>Invertido</td>
-                <td>{{ wallet_value["investment_eur"] }}</td>
+                <td style="text-align: right">{{ "%.2f" | format(wallet_value["investment_eur"]) }} €</td>
             </tr>
             <tr>
                 <td>Recuperado</td>
-                <td>{{ wallet_value["recovered_eur"] }}</td>
+                <td style="text-align: right">{{ "%.2f" | format(wallet_value["recovered_eur"]) }} €</td>
             </tr>
             <tr>
-                <td>Valor de compra</td>
-                <td>{{ wallet_value["purchase_value"] }}</td>
+                <td>Valor de compra (€ atrapados como criptos)</td>
+                <td style="text-align: right">{{ "%.2f" | format(wallet_value["purchase_value"]) }} €</td>
             </tr>
             <tr>
                 <td>Valor actual</td>
-                <td>{{ wallet_value["Total_crypto_value"] }}</td>
+                <td style="text-align: right">{{ "%.2f" | format(wallet_value["total_crypto_value"]) }} €</td>
+            </tr style=>
+            <tr>
+                <td>Beneficio</td>
+                <td style="text-align: right">{{ "%.2f" | format(beneficio) }} €</td>
             </tr>
         </tbody>
     </tbody>

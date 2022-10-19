@@ -1,0 +1,2 @@
+
+En /Status.html las cantidades en € solo se dan con 2 decimales (céntimos reales), redondeando a ellos, por ser más legible y no interferir con las operaciones reales al ser solo esta página de lectura.
