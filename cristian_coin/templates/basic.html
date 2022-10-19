@@ -19,10 +19,14 @@
     <section>
         <nav>
             <ul>
-                {% if %}
+                {% if not consult_all %}
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/purchase">Compra</a></li>
-                <li><a href="/status">Status</a></li>
+                {% endif %}
+                {% if not operation_form %}
+                <li></li><a href="/purchase">Compra</a></li>
+                {% endif %}
+                {% if not beneficio %}
+                <li></li><a href="/status">Status</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -44,7 +48,7 @@
         </div>
     </section>
     <footer>
-        <div>&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</div>
+        <div><p style="text-align: center; color: white">&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</p></div>
     </footer>
 </body>
 </html>

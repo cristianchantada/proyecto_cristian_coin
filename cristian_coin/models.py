@@ -142,7 +142,7 @@ def my_wallet():
         result = get("https://rest.coinapi.io/v1/exchangerate/{}/EUR?apikey={}".format(crypto, API_KEY))
 
         if result.status_code != 200:
-            raise Exception(f"Error en la consulta de los valores da divisas: {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+            raise Exception(f"Error en la consulta de los valores de divisas: código de estado de respuesta HTTP {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
 
         result = result.json()
         

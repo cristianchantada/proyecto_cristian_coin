@@ -11,14 +11,22 @@
             <th>Cantidad venta</th>
             <th>Compra (to)</th>
             <th>Cantidad compra</th>
-            <th>Precio unitario</th>
+            <th style="text-align: center">Precio unitario</th>
         </tr>
     </thead>
     <tbody>
         {% for register in consult_all %}
             <tr>
                 {% for column in register %}
-                     <td>{{ column }}</td>
+                    {% if column == register[5] %}
+                        <td style="text-align: right">{{ "%.8f" | format(column) }}</td>
+                    {% elif column == register[6] %}
+                    <td style="text-align: right">{{ "%.8f" | format(column) }} {{ register.2 | lower }}'s</td>
+                    {% elif column == register[3] %}
+                        <td style="text-align: right">{{ column }}</td>
+                    {% else %}
+                        <td style="text-align: center">{{ column }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}

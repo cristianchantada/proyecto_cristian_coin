@@ -14,25 +14,48 @@
         </div>
         <div class="grid">
             {{ operation_form.quantity_from.label }}
-            {{ operation_form.quantity_from (type="number") }}
+            {{ operation_form.quantity_from }}
 
             {{ operation_form.quantity_to.label }}
-            {{ quantity_to }}
+            {% if quantity_to %}
+                {{ quantity_to }} {{ operation_form.moneda_to.data | lower }}'s
+            {% endif %}
             {{ operation_form.quantity_to(value=quantity_to, type="hidden") }}
+        </div>
+        <div class="grid">
             <button type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></button>
         </div>
         <div class="grid">
-            {{ operation_form.unitary_prize.label }}
-            {{ unitary_prize }}
-            {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }} €
-        </div>
-        <div class="grid">
-            {{ operation_form.date.label }}
-            {{ date }}
-            {{ operation_form.date(value=date, type="hidden") }}
-            {{ operation_form.time.label }}
-            {{ time }}
-            {{ operation_form.time(value=time, type="hidden") }}
+            <table>
+                <tr>
+                    <td>
+                        {{ operation_form.unitary_prize.label }}
+                    </td>
+                    <td>
+                        {% if unitary_prize %}
+                            {{ unitary_prize }} {{ operation_form.moneda_from.data | lower }}'s
+                            {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ operation_form.date.label }}
+                    </td>
+                    <td>
+                        {{ date }}
+                        {{ operation_form.date(value=date, type="hidden") }}
+                    </td>
+                    <td>
+                    <td>
+                        {{ operation_form.time.label }}
+                    </td>
+                    <td>
+                        {{ time }}
+                        {{ operation_form.time(value=time, type="hidden") }}
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="grid">
             <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
