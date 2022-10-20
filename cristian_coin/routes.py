@@ -45,7 +45,6 @@ def coin_operation():
                 
         if request.form["enviar"] == "validate":
             try:
-
                 comprobation = secure_operation(operation.data)
 
                 if comprobation and operation.validate():

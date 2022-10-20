@@ -12,31 +12,38 @@
             <div>{{ operation_form.moneda_to }}</div>
         </div>
         <div class="grid">
-            {{ operation_form.quantity_from.label }}
-            {{ operation_form.quantity_from }}
-
-            {{ operation_form.quantity_to.label }}
-            {% if quantity_to %}
-                {{ quantity_to }} {{ operation_form.moneda_to.data | lower }}'s
-            {% endif %}
-            {{ operation_form.quantity_to(value=quantity_to, type="hidden") }}
+            <div>{{ operation_form.quantity_from.label }}</div>
+            <div>{{ operation_form.quantity_from }}</div>
+            <div>{{ operation_form.quantity_to.label }}</div>
+            <div class="hueco_resultado">
+                <p></p>
+                {% if quantity_to %}
+                    {{ "%.10f" | format(quantity_to) }} {{ operation_form.moneda_to.data | lower }}'s
+                {% endif %}
+                {{ operation_form.quantity_to(value=quantity_to, type="hidden") }}
+            </div>
         </div>
         <div class="grid">
+            <div>Calcular :</div>
             <button type="submit" name="enviar" value="calculate"><span class="material-symbols-outlined">calculate</span></button>
+            <div></div>
+            <div></div>
         </div>
+        <div class="grid">
+            <dv></dv>
+            <dv></dv>
+            <dv>{{ operation_form.unitary_prize.label }}</dv>
+            <dv class="hueco_resultado">
+                <p></p>
+                {% if unitary_prize %}
+                    {{ "%.10f" | format(unitary_prize) }} {{ operation_form.moneda_from.data | lower }}'s
+                    {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
+                {% endif %}
+            </dv>
+        </div>
+        <p></p>
         <div class="grid">
             <table>
-                <tr>
-                    <td>
-                        {{ operation_form.unitary_prize.label }}
-                    </td>
-                    <td>
-                        {% if unitary_prize %}
-                            {{ unitary_prize }} {{ operation_form.moneda_from.data | lower }}'s
-                            {{ operation_form.unitary_prize(value=unitary_prize, type="hidden") }}
-                        {% endif %}
-                    </td>
-                </tr>
                 <tr>
                     <td>
                         {{ operation_form.date.label }}
@@ -57,13 +64,18 @@
             </table>
         </div>
         <div class="grid">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <button style="color: red;" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
-                {% else %}
-                    <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
-                {% endif %}
-            {% endwith %}
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <button class= "little_button" style="color: red;" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                    {% else %}
+                        <button class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                    {% endif %}
+                {% endwith %}
+            </div>
         </div>
     </form>
 </section>
