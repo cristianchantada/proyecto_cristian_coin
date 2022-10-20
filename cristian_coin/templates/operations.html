@@ -6,11 +6,10 @@
         {{ operation_form.csrf_token }}
 
         <div class="grid">
-            {{ operation_form.moneda_from.label }}
-            {{ operation_form.moneda_from }}
-
-            {{ operation_form.moneda_to.label }}
-            {{ operation_form.moneda_to }}
+            <div>{{ operation_form.moneda_from.label }}</div>
+            <div>{{ operation_form.moneda_from }}</div>
+            <div>{{ operation_form.moneda_to.label }}</div>
+            <div>{{ operation_form.moneda_to }}</div>
         </div>
         <div class="grid">
             {{ operation_form.quantity_from.label }}
@@ -58,7 +57,13 @@
             </table>
         </div>
         <div class="grid">
-            <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <button style="color: red;" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                {% else %}
+                    <button type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                {% endif %}
+            {% endwith %}
         </div>
     </form>
 </section>

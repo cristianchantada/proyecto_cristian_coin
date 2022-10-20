@@ -1,7 +1,8 @@
-from config import API_KEY, DATA_BASE, MaxCriptoError
+from config import API_KEY, DATA_BASE
 import sqlite3
 from requests import get
 from datetime import datetime
+from werkzeug import exceptions
 
 def calculate(coin_from, coin_to, quantity_from):
 
@@ -20,7 +21,7 @@ def calculate(coin_from, coin_to, quantity_from):
     result = get("https://rest.coinapi.io/v1/exchangerate/{}/{}?apikey={}".format(coin_from, coin_to, API_KEY))
 
     if result.status_code != 200:
-        raise Exception(f"Error en la consulta de los valores da divisas: {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+        raise ServerConectionError(f"Error en la consulta de los valores de divisas: HTTP status code number {result.status_code}: .\n Por favor, reinténtelo de nuevo más tarde o revise que su api key de coinapi.io está correcta.")
 
     result = result.json()
 
@@ -142,7 +143,7 @@ def my_wallet():
         result = get("https://rest.coinapi.io/v1/exchangerate/{}/EUR?apikey={}".format(crypto, API_KEY))
 
         if result.status_code != 200:
-            raise Exception(f"Error en la consulta de los valores de divisas: código de estado de respuesta HTTP {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+            raise ServerConectionError(f"Error en la consulta de los valores de divisas: código de estado de respuesta HTTP {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
 
         result = result.json()
         
@@ -158,3 +159,11 @@ def my_wallet():
     all = {"investment_eur": invest, "recovered_eur": recover, "purchase_value": purchase_value, "total_crypto_value": total_crypto_value}
 
     return all
+
+class MaxCriptoError(exceptions.HTTPException):
+    code = 418
+    pass
+
+class ServerConectionError(exceptions.HTTPException):
+    code = 400
+    pass

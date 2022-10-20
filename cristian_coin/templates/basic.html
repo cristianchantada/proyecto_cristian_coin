@@ -8,44 +8,51 @@
     <link rel="stylesheet" href="/static/css/pico.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
     <title>{{pageTitle}}</title>
 </head>
-<body class="container">
-    <header>
-        <div>Cristian Abstract Company</div>
-        <p>Smoke sellers since 1988</p>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 style="color:white">Cristian Abstract Company</h1>
+            <p style="color:white">Smoke sellers since 1988</p>
+        </div>
     </header>
-    <section>
-        <nav>
+    <section class="container">
+        <nav aria-label="breadcrumb">
             <ul>
                 {% if not consult_all %}
                 <li><a href="/">Inicio</a></li>
                 {% endif %}
                 {% if not operation_form %}
-                <li></li><a href="/purchase">Compra</a></li>
+                <li><a href="/purchase">Compra</a></li>
                 {% endif %}
                 {% if not beneficio %}
-                <li></li><a href="/status">Status</a></li>
+                <li><a href="/status">Status</a></li>
                 {% endif %}
             </ul>
         </nav>
     </section>
-    <section>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <section>       
+        <article>
+            <div class="grid">
+                <h6>INFORMACIÓN DE LA OPERACIÓN:</h6>
+            </div>
+            <div>
+                <ul>
+                    <p></p>
+                    {% for mssgs in messages %}
+                        <li style= "color: red">{{ mssgs }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </article>
+    </section>
+    {% endif %}
+    {% endwith %}
+    <section class="container">
         {% block pageContent %}{% endblock %}
-        <div class="grid">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul>
-                        <li>INFORMACIÓN DE LA OPERACIÓN:</li>
-                        <p></p>
-                        {% for mssgs in messages %}
-                            <li>{{ mssgs }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-        </div>
     </section>
     <footer>
         <div><p style="text-align: center; color: white">&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</p></div>

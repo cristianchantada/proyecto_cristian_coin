@@ -8,10 +8,10 @@ header, footer {
 body {
     min-height: 100vh;
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: 40 1000px 1fr auto;
     margin: 0;
 }
 
-.inactive {
-    display: none;
+.header {
+    background-image: url("/static/images/100018.png");
 }
