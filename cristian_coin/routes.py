@@ -1,9 +1,9 @@
-import sqlite3
-from cristian_coin import app
-from config import ACCEPTED_COINS
+from cristian_coin.models import commit_operation, select_all, calculate, my_wallet, secure_operation, validation_on_server
 from flask import render_template, request, flash, redirect, url_for
-from cristian_coin.models import commit_operation, select_all, calculate, my_wallet, secure_operation
 from cristian_coin.forms import PurchaseForm
+from config import ACCEPTED_COINS
+from cristian_coin import app
+import sqlite3
 
 @app.route("/")
 def index():
@@ -23,19 +23,9 @@ def coin_operation():
     else:
         if request.form["enviar"] == "calculate":
             try:
-
-                if not operation.data["moneda_from"] in ACCEPTED_COINS or not operation.data["moneda_to"] in ACCEPTED_COINS or operation.data["quantity_from"] <= 0 or operation.data["moneda_from"] == operation.data["moneda_to"]:
-                    if not operation.data["moneda_from"] in ACCEPTED_COINS:
-                        flash("Solo puede operar con las monedas incluidas en el selector de 'Vender'; seleccione una de ellas para continuar con el proceso de compra.")
-                    if not operation.data["moneda_to"] in ACCEPTED_COINS:
-                        flash("Solo puede comprar monedas incluidas en el selector de 'Comprar'; seleccione una de ellas para continuar con el proceso de compra.")
-                    if operation.data["quantity_from"] <= 0:
-                        flash("La cantidad de divisas a vender tiene que ser positiva.")
-                    if operation.data["moneda_from"] == operation.data["moneda_to"]:
-                        flash("La moneda a vender y la moneda a comprar deben ser distintas.")
-
+                form_validated = validation_on_server(operation.data)
+                if form_validated == False:
                     return render_template("operations.html", pageTitle= "compra", operation_form= operation)
-
                 else:             
                     result = calculate(operation.data["moneda_from"], operation.data["moneda_to"], operation.data["quantity_from"])
                     return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= result["quantity_to"], unitary_prize= result["unitary_prize"], date = result["date"], time= result["time"])
@@ -57,8 +47,6 @@ def coin_operation():
             except sqlite3.Error as e:
                 flash(f"Se ha producido un error en la base de datos ({e}). Por favor, contacte con el administrador o reinténtelo más tarde.")
                 return render_template("operations.html", pageTitle= "Eror en la base de datos", operation_form= operation)
-
-
 
 @app.route("/status")
 def wallet_status():

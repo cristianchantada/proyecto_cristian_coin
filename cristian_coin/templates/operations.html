@@ -44,23 +44,43 @@
         <p></p>
         <div class="grid">
             <table>
-                <tr>
-                    <td>
-                        {{ operation_form.date.label }}
-                    </td>
-                    <td>
-                        {{ date }}
-                        {{ operation_form.date(value=date, type="hidden") }}
-                    </td>
-                    <td>
-                    <td>
-                        {{ operation_form.time.label }}
-                    </td>
-                    <td>
-                        {{ time }}
-                        {{ operation_form.time(value=time, type="hidden") }}
-                    </td>
-                </tr>
+                <thead>
+                    <th>Datos de la operación que va a lelvarse a cabo</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>operation_form.moneda_from.label</td>
+                        <td>operation_form.moneda_from</td>
+                        <td>operation_form.quantity_from.label</td>
+                        <td>operation_form.quantity_from</td>
+                    </tr>
+                    <tr>
+                        <td>peration_form.moneda_to.label</td>
+                        <td>peration_form.moneda_to</td>
+                        <td>operation_form.quantity_to.label</td>
+                        <td>{{ "%.10f" | format(quantity_to) }} {{ operation_form.moneda_to.data | lower }}'s</td>
+                    </tr>
+                    <tr>
+                        <td>Precio unitario de la operación (en monedas a vender)</td>
+                        <td>{{ "%.10f" | format(unitary_prize) }} {{ operation_form.moneda_from.data | lower }}'s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ operation_form.date.label }}
+                        </td>
+                        <td>
+                            {{ date }}
+                            {{ operation_form.date(value=date, type="hidden") }}
+                        </td>
+                        <td>
+                            {{ operation_form.time.label }}
+                        </td>
+                        <td>
+                            {{ time }}
+                            {{ operation_form.time(value=time, type="hidden") }}
+                        </td>
+                    </tr>
+            </tbody>
             </table>
         </div>
         <div class="grid">
@@ -68,13 +88,7 @@
             <div></div>
             <div></div>
             <div>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <button class= "little_button" style="color: red;" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
-                    {% else %}
-                        <button class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
-                    {% endif %}
-                {% endwith %}
+                <button class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
             </div>
         </div>
     </form>

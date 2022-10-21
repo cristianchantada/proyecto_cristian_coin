@@ -23,32 +23,32 @@
         <nav aria-label="breadcrumb">
             <ul>
                 {% if not consult_all %}
-                <li><a href="/">Inicio</a></li>
+                    <li><a href="/">Inicio</a></li>
                 {% endif %}
                 {% if not operation_form %}
-                <li><a href="/purchase">Compra</a></li>
+                    <li><a href="/purchase">Compra</a></li>
                 {% endif %}
                 {% if not beneficio %}
-                <li><a href="/status">Status</a></li>
+                    <li><a href="/status">Status</a></li>
                 {% endif %}
             </ul>
         </nav>
     </section>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <section>       
+    <section class="container">       
         <article>
-            <div class="grid">
                 <h6>INFORMACIÓN DE LA OPERACIÓN:</h6>
-            </div>
-            <div>
                 <ul>
-                    <p></p>
+                    <br>
                     {% for mssgs in messages %}
-                        <li style= "color: red">{{ mssgs }}</li>
+                        {% if mssgs == "La operación de compra de monedas ha sido realizada con éxito" %}
+                            <li style= "color: green">{{ mssgs }}</li>
+                        {% else %}
+                            <li style= "color: red">{{ mssgs }}</li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
-            </div>
         </article>
     </section>
     {% endif %}
