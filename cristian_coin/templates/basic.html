@@ -19,7 +19,7 @@
             </hgroup>
         </div>
     </header>
-    <section class="container">
+    <section id="section_nav" class="container">
         <nav aria-label="breadcrumb">
             <ul>
                 {% if not consult_all %}
@@ -36,8 +36,8 @@
     </section>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <section class="container">       
-        <article>
+    <section class="container" id="info_list_section">       
+        <article id="info_list">
                 <h6>INFORMACIÓN DE LA OPERACIÓN:</h6>
                 <ul>
                     <br>

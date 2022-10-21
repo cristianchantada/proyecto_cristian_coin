@@ -35,10 +35,10 @@ def db_insert_antihack(msg, secret_values_msg):
 
 def calculate(coin_from, coin_to, quantity_from):
     if coin_from != "EUR":
-        max_cripto = db_select_fetchall(f"SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = {coin_from}")
-        max_cripto = max_cripto[0]
+        max_cripto = db_select_fetchall(f"SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = '{coin_from}'")
+        max_cripto = max_cripto[0][0]
         if quantity_from > max_cripto:
-            raise MaxCriptoError(f"No dispone de suficientes criptomonedas '{coin_from}' para realizar la operación. Su máximo en cartera de {coin_from} son {max_cripto}")
+            raise MaxCriptoError(f"No dispone de suficientes criptomonedas '{coin_from}' para realizar la operación. Su máximo en cartera de {coin_from} son {max_cripto}.\nSi desea vender todas sus divisas, copie la cantidad y péguela en 'cantidad de moneda a vender' en el formulario de operaciones anterior.")
 
     result = coinapi_io_connect(coin_from, coin_to)
     quantity_to = quantity_from * result["rate"]
@@ -56,10 +56,10 @@ def calculate(coin_from, coin_to, quantity_from):
 
 def secure_operation(dict_validated_operation):
 
-    save_operation = db_select_fetchall("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table;")
+    saved_operation = db_select_fetchall("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table;")
     db_delete("DELETE FROM stand_by_operation_table;")
 
-    if save_operation == (dict_validated_operation["moneda_from"], dict_validated_operation["quantity_from"], dict_validated_operation["moneda_to"],dict_validated_operation["quantity_to"], dict_validated_operation["date"], dict_validated_operation["time"], dict_validated_operation["unitary_prize"]):
+    if saved_operation[0] == (dict_validated_operation["moneda_from"], dict_validated_operation["quantity_from"], dict_validated_operation["moneda_to"],dict_validated_operation["quantity_to"], dict_validated_operation["date"], dict_validated_operation["time"], dict_validated_operation["unitary_prize"]):
         return True
     return False 
 
@@ -83,7 +83,7 @@ def my_wallet():
     crypto_values = { "BTC": 0, "ETH": 0}
 
     for crypto in crypto_values:
-        result_this_crypto = db_select_fetchall(f"SELECT ((Select sum(cantidad_to) FROM operations_table WHERE moneda_to = {crypto}) - (select sum(cantidad_from) FROM operations_table WHERE moneda_from = {crypto}))")
+        result_this_crypto = db_select_fetchall(f"SELECT ((Select sum(cantidad_to) FROM operations_table WHERE moneda_to = '{crypto}') - (select sum(cantidad_from) FROM operations_table WHERE moneda_from = '{crypto}'))")
 
         crypto_values[crypto]= result_this_crypto[0][0]
 
@@ -98,15 +98,15 @@ def my_wallet():
 
     return all
 
-def validation_on_server(operation.data):
-    if not operation.data["moneda_from"] in ACCEPTED_COINS or not operation.data["moneda_to"] in ACCEPTED_COINS or operation.data["quantity_from"] <= 0 or operation.data["moneda_from"] == operation.data["moneda_to"]:
-        if not operation.data["moneda_from"] in ACCEPTED_COINS:
+def validation_on_server(operation_data):
+    if not operation_data["moneda_from"] in ACCEPTED_COINS or not operation_data["moneda_to"] in ACCEPTED_COINS or operation_data["quantity_from"] <= 0 or operation_data["moneda_from"] == operation_data["moneda_to"]:
+        if not operation_data["moneda_from"] in ACCEPTED_COINS:
             flash("Solo puede operar con las monedas incluidas en el selector de 'Vender'; seleccione una de ellas para continuar con el proceso de compra.")
-        if not operation.data["moneda_to"] in ACCEPTED_COINS:
+        if not operation_data["moneda_to"] in ACCEPTED_COINS:
             flash("Solo puede comprar monedas incluidas en el selector de 'Comprar'; seleccione una de ellas para continuar con el proceso de compra.")
-        if operation.data["quantity_from"] <= 0:
+        if operation_data["quantity_from"] <= 0:
             flash("La cantidad de divisas a vender tiene que ser positiva.")
-        if operation.data["moneda_from"] == operation.data["moneda_to"]:
+        if operation_data["moneda_from"] == operation_data["moneda_to"]:
             flash("La moneda a vender y la moneda a comprar deben ser distintas.")
     return True
 

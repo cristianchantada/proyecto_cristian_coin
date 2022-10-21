@@ -1,7 +1,7 @@
 {% extends "basic.html" %}
 
 {% block pageContent %}
-<section>
+<section id="section_subpages">
     <form action="/purchase" method="post">
         {{ operation_form.csrf_token }}
 
@@ -42,53 +42,36 @@
             </dv>
         </div>
         <p></p>
+        {% if unitary_prize %}
         <div class="grid">
-            <table>
-                <thead>
-                    <th>Datos de la operación que va a lelvarse a cabo</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>operation_form.moneda_from.label</td>
-                        <td>operation_form.moneda_from</td>
-                        <td>operation_form.quantity_from.label</td>
-                        <td>operation_form.quantity_from</td>
-                    </tr>
-                    <tr>
-                        <td>peration_form.moneda_to.label</td>
-                        <td>peration_form.moneda_to</td>
-                        <td>operation_form.quantity_to.label</td>
-                        <td>{{ "%.10f" | format(quantity_to) }} {{ operation_form.moneda_to.data | lower }}'s</td>
-                    </tr>
-                    <tr>
-                        <td>Precio unitario de la operación (en monedas a vender)</td>
-                        <td>{{ "%.10f" | format(unitary_prize) }} {{ operation_form.moneda_from.data | lower }}'s</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ operation_form.date.label }}
-                        </td>
-                        <td>
-                            {{ date }}
-                            {{ operation_form.date(value=date, type="hidden") }}
-                        </td>
-                        <td>
-                            {{ operation_form.time.label }}
-                        </td>
-                        <td>
-                            {{ time }}
-                            {{ operation_form.time(value=time, type="hidden") }}
-                        </td>
-                    </tr>
-            </tbody>
+            <table style="font-size: 24px ;">
+                <tr>
+                    <td>
+                        {{ operation_form.date.label }}
+                    </td>
+                    <td>
+                        {{ date }}
+                    </td>
+                    <td>
+                        {{ operation_form.time.label }}
+                    </td>
+                    <td>
+                        {{ time }}
+                    </td>
+                </tr>
             </table>
         </div>
+        {% endif %}
         <div class="grid">
             <div></div>
             <div></div>
             <div></div>
             <div>
-                <button class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                {% if unitary_prize %}
+                    <button style="color: green" class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                {% else %}   
+                    <button style="color: red" class= "little_button" type="submit" name="enviar" value="validate" id="btn-valida"><span class="material-symbols-outlined">done_outline</span></button>
+                {% endif %}
             </div>
         </div>
     </form>
