@@ -12,10 +12,11 @@
 </head>
 <body>
     <header>
+        <img id="img" src="/static/images/cristian_company_logo.png" alt="">
         <div class="container">
-            <hgroup>
-                <h2 style="color:white; text-align: right;">Cristian Abstract Company</h2>
-                <h3 style="color:white; text-align: right;">Smoke sellers since 1988</h3>
+            <hgroup id="hg">
+                <h2 style="color:black; text-align: right;">Cristian Abstract Company</h2>
+                <h3 style="color:black; text-align: right;">Smoke sellers since 1988</h3>
             </hgroup>
         </div>
     </header>
@@ -23,13 +24,13 @@
         <nav aria-label="breadcrumb">
             <ul>
                 {% if not consult_all %}
-                    <li><a href="/">Inicio</a></li>
+                    <li><a style="color: rgb(204, 146, 0);" href="/">Inicio</a></li>
                 {% endif %}
                 {% if not operation_form %}
-                    <li><a href="/purchase">Compra</a></li>
+                    <li><a style="color: rgb(204, 146, 0);" href="/purchase">Compra</a></li>
                 {% endif %}
                 {% if not beneficio %}
-                    <li><a href="/status">Status</a></li>
+                    <li><a style="color: rgb(204, 146, 0);" href="/status">Status</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -57,7 +58,7 @@
         {% block pageContent %}{% endblock %}
     </section>
     <footer>
-        <div><p style="text-align: center; color: white">&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</p></div>
+        <div><p style="text-align: center; color: black">&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</p></div>
     </footer>
 </body>
 </html>

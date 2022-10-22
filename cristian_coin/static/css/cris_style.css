@@ -1,6 +1,6 @@
 header, footer {
-    background-color: var(--primary);
-    color: var(--primary-inverse);
+    background-color: rgb(204, 146, 0);
+    color: black;
     font-size: 1.4em;
     font-weight: bold;
 }
@@ -35,5 +35,42 @@ body {
 }
 
 #info_list_section {
-    margin-bottom: 20px;
+    /* margin-bottom: px; */
 }
+
+#img {
+    width: 150px;
+    height: 150px;
+    float: right;
+    position:relative;
+    top: -50px;
+    left: -1370px; 
+}
+
+#hg {
+    position:relative;
+    top: -20px; 
+}
+
+#jato {
+    float: right;
+    width: 100px;
+    height: 100px;
+    position:relative;
+    top: 290px;
+    left: 120px;
+    border:1px solid rgb(204, 146, 0);
+
+}
+
+#perro {
+    float: right;
+    width: 100px;
+    height: 150px;
+    position:relative;
+    top: 290px;
+    left: 120px;
+    border:1px solid rgb(204, 146, 0);
+
+}
+
