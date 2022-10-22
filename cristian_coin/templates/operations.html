@@ -1,7 +1,7 @@
 {% extends "basic.html" %}
 
 {% block pageContent %}
-<section id="section_subpages">
+<section id="section_subpages" class="container">
     <form action="/purchase" method="post">
         {{ operation_form.csrf_token }}
 

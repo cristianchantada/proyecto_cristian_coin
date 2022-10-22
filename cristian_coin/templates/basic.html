@@ -45,6 +45,9 @@
                     {% for mssgs in messages %}
                         {% if mssgs == "La operación de compra de monedas ha sido realizada con éxito" %}
                             <li style= "color: green">{{ mssgs }}</li>
+                        {% elif mssgs == "Solo puede operar con las monedas incluidas en el selector de 'Vender'; seleccione una de ellas para continuar con el proceso de compra." or mssgs == "Solo puede comprar monedas incluidas en el selector de 'Comprar'; seleccione una de ellas para continuar con el proceso de compra." %}
+                            <li style= "color: red">{{ mssgs }}</li>
+                            <img id="disimulando" src="/static/images/disimulando.jpg">
                         {% else %}
                             <li style= "color: red">{{ mssgs }}</li>
                         {% endif %}
@@ -54,9 +57,7 @@
     </section>
     {% endif %}
     {% endwith %}
-    <section class="container">
-        {% block pageContent %}{% endblock %}
-    </section>
+    {% block pageContent %}{% endblock %}
     <footer>
         <div><p style="text-align: center; color: black">&copy; 2022 - Cristian Abstract Company. All Rights Reserved.</p></div>
     </footer>

@@ -1,36 +1,38 @@
 {% extends "basic.html" %}
 
 {% block pageContent %}
-<table>
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Venta (from)</th>
-            <th>Cantidad venta</th>
-            <th>Compra (to)</th>
-            <th>Cantidad compra</th>
-            <th style="text-align: center">Precio unitario</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for register in consult_all %}
+<section class="container">
+    <table>
+        <thead>
             <tr>
-                {% for column in register %}
-                    {% if column == register[5] %}
-                        <td style="text-align: right">{{ "%.8f" | format(column) }}</td>
-                    {% elif column == register[6] %}
-                    <td style="text-align: right">{{ "%.8f" | format(column) }} {{ register.2 | lower }}'s</td>
-                    {% elif column == register[3] %}
-                        <td style="text-align: right">{{ column }}</td>
-                    {% elif column == register[2] or column == register[4] %}
-                        <td style="text-align: center">{{ column }}</td>
-                    {% else %}
-                        <td style="text-align: center">{{ column }}</td>
-                    {% endif %}
-                {% endfor %}
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Venta (from)</th>
+                <th>Cantidad venta</th>
+                <th>Compra (to)</th>
+                <th>Cantidad compra</th>
+                <th style="text-align: center">Precio unitario</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for register in consult_all %}
+                <tr>
+                    {% for column in register %}
+                        {% if column == register[5] %}
+                            <td style="text-align: right">{{ "%.8f" | format(column) }} {{ register.4 | lower }}'s</td>
+                        {% elif column == register[6] %}
+                        <td style="text-align: right">{{ "%.8f" | format(column) }} {{ register.2 | lower }}'s</td>
+                        {% elif column == register[3] %}
+                            <td style="text-align: right">{{ column }} {{ register.2 | lower }}'s</td>
+                        {% elif column == register[2] or column == register[4] %}
+                            <td style="text-align: center">{{ column }}    <img class=coin_logo src="/static/images/{{column}}.png" alt=""></td>
+                        {% else %}
+                            <td style="text-align: center">{{ column }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 {% endblock %}

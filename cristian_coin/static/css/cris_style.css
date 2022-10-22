@@ -35,7 +35,7 @@ body {
 }
 
 #info_list_section {
-    /* margin-bottom: px; */
+    margin-bottom: 10px;
 }
 
 #img {
@@ -54,13 +54,11 @@ body {
 
 #jato {
     float: right;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     position:relative;
     top: 290px;
     left: 120px;
-    border:1px solid rgb(204, 146, 0);
-
 }
 
 #perro {
@@ -70,7 +68,17 @@ body {
     position:relative;
     top: 290px;
     left: 120px;
-    border:1px solid rgb(204, 146, 0);
-
 }
 
+.coin_logo {
+    height: 25px;
+    width: 25px;
+}
+
+#disimulando {
+    float: right;
+    width: 240px;
+    height: 300px;
+    position: relative;
+    top: -204px;
+}

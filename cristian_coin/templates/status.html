@@ -1,17 +1,17 @@
 {%  extends "basic.html" %}
 
 {% block pageContent %}
-
-<table>
-    <thead>
-        <th>ESTADO DE LA INVERSIÓN</th>
-    </thead>
-    <tbody>
+<section class="container">
+    <table>
+        <thead>
+            <th>ESTADO DE LA INVERSIÓN</th>
+        </thead>
         <tbody>
             <tr>
                 <td>Invertido</td>
                 <td style="text-align: right">{{ "%.2f" | format(wallet_value["investment_eur"]) }} €</td>
             </tr>
+            </div>
             <tr>
                 <td>Recuperado</td>
                 <td style="text-align: right">{{ "%.2f" | format(wallet_value["recovered_eur"]) }} €</td>
@@ -27,16 +27,14 @@
             <tr>
                 <td>Beneficio</td>
                 {% if beneficio > 0 %}
-                <td style="text-align: right; color: green;">{{ "%.2f" | format(beneficio) }} €</td>
+                    <td style="text-align: right; color: green;">{{ "%.2f" | format(beneficio) }} €</td>
+                    <img id="perro" src="/static/images/perro_rico.png" alt="">
                 {% else %}
-                <td style="text-align: right; color: red;">{{ "%.2f" | format(beneficio) }} €</td>
-                <!-- <img id="jato" src="/static/images/jato_yorando_2.jpg" alt=""> -->
-                <!-- <img id="perro" src="/static/images/perro_rico.png" alt=""> -->
-
+                    <td style="text-align: right; color: red;">{{ "%.2f" | format(beneficio) }} €</td>
+                    <!-- <img id="jato" src="/static/images/jato_iorando.png" alt=""> -->
                 {% endif %}
             </tr>
         </tbody>
-    </tbody>
-</table>
-
+    </table>
+</section>
 {% endblock %}

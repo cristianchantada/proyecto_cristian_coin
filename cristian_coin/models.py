@@ -85,10 +85,13 @@ def my_wallet():
     for crypto in crypto_values:
         result_this_crypto = db_select_fetchall(f"SELECT ((Select sum(cantidad_to) FROM operations_table WHERE moneda_to = '{crypto}') - (select sum(cantidad_from) FROM operations_table WHERE moneda_from = '{crypto}'))")
 
-        crypto_values[crypto]= result_this_crypto[0][0]
+        if result_this_crypto[0][0] == 0:
+            del crypto_values[crypto]
+        else:     
+            crypto_values[crypto]= result_this_crypto[0][0]
 
-    result = coinapi_io_connect(crypto, "EUR")
-    crypto_values[crypto] = crypto_values[crypto] * result["rate"]
+            result = coinapi_io_connect(crypto, "EUR")
+            crypto_values[crypto] = crypto_values[crypto] * result["rate"]
 
     total_crypto_value = 0
     for cantidad_misma_cripto in crypto_values.values():
