@@ -51,12 +51,14 @@
                     </td>
                     <td>
                         {{ date }}
+                        {{ operation_form.date(value=date, type="hidden") }}
                     </td>
                     <td>
                         {{ operation_form.time.label }}
                     </td>
                     <td>
                         {{ time }}
+                        {{ operation_form.time(value=time, type="hidden") }}
                     </td>
                 </tr>
             </table>

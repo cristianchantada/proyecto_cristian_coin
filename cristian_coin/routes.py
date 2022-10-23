@@ -39,7 +39,11 @@ def coin_operation():
 
                 if comprobation and operation.validate():
                         commit_operation(operation.data)
-                        flash("La operación de compra de monedas ha sido realizada con éxito")
+                        if operation.data["moneda_from"] == "EUR":
+                            flash("Enhorabuena, la operación de compra de nada por dinero real ha sido realizada con exito.")
+                        else:
+                            flash("La operación de compra de monedas ha sido realizada con éxito.")
+
                         return redirect(url_for("index"))
                 else:
                     flash("La operación de compra a realizar no ha sido calculada o bien no coincide con los valores calculados previamente. Por favor, recalcule de nuevo para validar la operación correctamente.")

@@ -78,7 +78,28 @@ body {
 #disimulando {
     float: right;
     width: 240px;
-    height: 300px;
+    height: 260px;
     position: relative;
-    top: -204px;
+    top: -180px;
+    left: 100
+}
+
+#venta_euros {
+    float: right;
+    width: 230px;
+    height: 170px;
+    position: relative;
+    top: -130px;
+    left: 20px
+}
+
+#venta_otras {
+    border:3px solid rgb(204, 146, 0);
+    border-radius:27px;
+    float: right;
+    width: 300px;
+    height: 200px;
+    position: relative;
+    top: -140px;
+    left: -58px
 }
