@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from config import API_KEY, DATA_BASE, URL_COINAPI_IO_EXCHANGERATE, ACCEPTED_COINS
 from werkzeug import exceptions
 from datetime import datetime
@@ -37,6 +38,9 @@ def calculate(coin_from, coin_to, quantity_from):
     if coin_from != "EUR":
         max_cripto = db_select_fetchall(f"SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = '{coin_from}'")
         max_cripto = max_cripto[0][0]
+
+        if max_cripto == None:
+            max_cripto = 0
         if quantity_from > max_cripto:
             raise MaxCriptoError(f"No dispone de suficientes criptomonedas '{coin_from}' para realizar la operación. Su máximo en cartera de {coin_from} son {max_cripto}.\nSi desea vender todas sus divisas, copie la cantidad y péguela en 'cantidad de moneda a vender' en el formulario de operaciones anterior.")
 
@@ -50,7 +54,7 @@ def calculate(coin_from, coin_to, quantity_from):
     db_delete("DELETE FROM stand_by_operation_table;")
     db_insert_antihack("INSERT INTO stand_by_operation_table (moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize) VALUES (?,?,?,?,?,?,?)", (coin_from, quantity_from, coin_to, quantity_to, date, time, unitary_prize))
 
-    result ={"quantity_to" : quantity_to  , 'unitary_prize': unitary_prize, "date": date, "time": time }
+    result ={"quantity_to": quantity_to  , 'unitary_prize': unitary_prize, "date": date, "time": time }
     
     return result
 
@@ -76,20 +80,33 @@ def my_wallet():
 
     invest = investment_eur[0][0]
     recover = recovered_eur[0][0]
+    
+    if invest == None:
+        invest = 0
+    if recover == None:
+        recover = 0
+
     purchase_value = invest - recover
 
-    ##crypto_values = { "BTC": 0, "ETH": 0, "USDT": 0, "BNB": 0, "XRP": 0, "ADA": 0, "SOL": 0, "DOT": 0, "MATIC": 0}
-
-    crypto_values = { "BTC": 0, "ETH": 0}
+    crypto_values = { "BTC": 0, "ETH": 0, "USDT": 0, "BNB": 0, "XRP": 0, "ADA": 0, "SOL": 0, "DOT": 0, "MATIC": 0}
 
     for crypto in crypto_values:
-        result_this_crypto = db_select_fetchall(f"SELECT ((Select sum(cantidad_to) FROM operations_table WHERE moneda_to = '{crypto}') - (select sum(cantidad_from) FROM operations_table WHERE moneda_from = '{crypto}'))")
+        result_this_crypto_to = db_select_fetchall(f"SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = '{crypto}'")
+        result_this_crypto_from = db_select_fetchall(f"SELECT sum(cantidad_from) FROM operations_table WHERE moneda_from = '{crypto}'")
+        
+        result_this_coin_to = result_this_crypto_to[0][0]
+        result_this_coin_from = result_this_crypto_from[0][0] 
 
-        if result_this_crypto[0][0] == 0:
-            del crypto_values[crypto]
-        else:     
-            crypto_values[crypto]= result_this_crypto[0][0]
+        if result_this_coin_to == None:
+            result_this_coin_to = 0
+        if result_this_coin_from == None:
+            result_this_coin_from = 0
 
+        result_this_crypto = result_this_coin_to - result_this_coin_from
+
+        crypto_values[crypto]= result_this_crypto
+        
+        if crypto_values[crypto] != 0:
             result = coinapi_io_connect(crypto, "EUR")
             crypto_values[crypto] = crypto_values[crypto] * result["rate"]
 
@@ -104,13 +121,16 @@ def my_wallet():
 def validation_on_server(operation_data):
     if not operation_data["moneda_from"] in ACCEPTED_COINS or not operation_data["moneda_to"] in ACCEPTED_COINS or operation_data["quantity_from"] <= 0 or operation_data["moneda_from"] == operation_data["moneda_to"]:
         if not operation_data["moneda_from"] in ACCEPTED_COINS:
-            flash("Solo puede operar con las monedas incluidas en el selector de 'Vender'; seleccione una de ellas para continuar con el proceso de compra.")
+            flash("Solo puede operar con las monedas incluidas en el selector de 'Vender'.")
+            flash("Seleccione una de ellas para continuar con el proceso de compra.")
         if not operation_data["moneda_to"] in ACCEPTED_COINS:
-            flash("Solo puede comprar monedas incluidas en el selector de 'Comprar'; seleccione una de ellas para continuar con el proceso de compra.")
+            flash("Solo puede comprar monedas incluidas en el selector de 'Comprar'.")
+            flash("Seleccione una de ellas para continuar con el proceso de compra.")
         if operation_data["quantity_from"] <= 0:
             flash("La cantidad de divisas a vender tiene que ser positiva.")
         if operation_data["moneda_from"] == operation_data["moneda_to"]:
             flash("La moneda a vender y la moneda a comprar deben ser distintas.")
+        return False
     return True
 
 class MaxCriptoError(exceptions.HTTPException):

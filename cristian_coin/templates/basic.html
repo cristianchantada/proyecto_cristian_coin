@@ -50,7 +50,7 @@
                             <li style= "color: green">{{ mssgs }}</li>
                             <p></p>
                             <img id="venta_euros" src="/static/images/venta_euros.jpg">
-                        {% elif mssgs == "Solo puede operar con las monedas incluidas en el selector de 'Vender'; seleccione una de ellas para continuar con el proceso de compra." or mssgs == "Solo puede comprar monedas incluidas en el selector de 'Comprar'; seleccione una de ellas para continuar con el proceso de compra." %}
+                        {% elif mssgs == "Seleccione una de ellas para continuar con el proceso de compra." %}
                             <li style= "color: red">{{ mssgs }}</li>
                             <img id="disimulando" src="/static/images/disimulando.jpg">
                         {% else %}

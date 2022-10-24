@@ -2,7 +2,7 @@
 
 {% block pageContent %}
 <section class="container">
-    <table>
+    <table id="status_table">
         <thead>
             <th>ESTADO DE LA INVERSIÓN</th>
         </thead>
@@ -29,9 +29,11 @@
                 {% if beneficio > 0 %}
                     <td style="text-align: right; color: green;">{{ "%.2f" | format(beneficio) }} €</td>
                     <img id="perro" src="/static/images/perro_rico.png" alt="">
-                {% else %}
+                {% elif beneficio < 0 %}
                     <td style="text-align: right; color: red;">{{ "%.2f" | format(beneficio) }} €</td>
                     <img id="jato" src="/static/images/jato_iorando.png" alt="">
+                {% else %}
+                    <td style="text-align: right; color: black;">{{ "%.2f" | format(beneficio) }} €</td>
                 {% endif %}
             </tr>
         </tbody>

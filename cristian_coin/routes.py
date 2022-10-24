@@ -29,12 +29,13 @@ def coin_operation():
                 else:             
                     result = calculate(operation.data["moneda_from"], operation.data["moneda_to"], operation.data["quantity_from"])
                     return render_template("operations.html", pageTitle= "Compra", operation_form= operation, quantity_to= result["quantity_to"], unitary_prize= result["unitary_prize"], date = result["date"], time= result["time"])
+
             except sqlite3.Error as e:
                 flash(f"Se ha producido un error en la base de datos ({e}). Por favor, contacte con el administrador o reinténtelo más tarde.")
                 return render_template("operations.html", pageTitle= "Error en la base de datos", operation_form= operation)
                 
         if request.form["enviar"] == "validate":
-            try:
+            try:            
                 comprobation = secure_operation(operation.data)
 
                 if comprobation and operation.validate():
