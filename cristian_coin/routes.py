@@ -1,7 +1,6 @@
 from cristian_coin.models import commit_operation, select_all, calculate, my_wallet, secure_operation, validation_on_server
 from flask import render_template, request, flash, redirect, url_for
 from cristian_coin.forms import PurchaseForm
-from config import ACCEPTED_COINS
 from cristian_coin import app
 import sqlite3
 
