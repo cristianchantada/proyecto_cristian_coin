@@ -23,13 +23,13 @@
     <section id="section_nav" class="container">
         <nav aria-label="breadcrumb">
             <ul>
-                {% if not consult_all %}
+                {% if not request.base_url == 'http://localhost:5000/' %}
                     <li><a style="color: rgb(204, 146, 0);" href="/">Inicio</a></li>
                 {% endif %}
-                {% if not operation_form %}
+                {% if not request.base_url == 'http://localhost:5000/purchase' %}
                     <li><a style="color: rgb(204, 146, 0);" href="/purchase">Compra</a></li>
-                {% endif %}
-                {% if not beneficio %}
+                {% endif %}   
+                {% if not request.base_url == 'http://localhost:5000/status' %}
                     <li><a style="color: rgb(204, 146, 0);" href="/status">Status</a></li>
                 {% endif %}
             </ul>

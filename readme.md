@@ -8,6 +8,8 @@
 
 ### Notas varias:
 
+* Aplicación diseñada en 1920x1080 px; espero que si se ejecuta en otras resoluciones de pantalla siga quedando todo bien alineadito (en varias pruebas ha sido correcto).
+
 * En */Status.html* las cantidades en € solo se dan con 2 decimales (céntimos reales), por ser más legible. No interfiere con las operaciones reales al ser esta página solamente de lectura. Este redondeo no se guarda en la base de datos.
 
 * En */index.html* se redondea a 8 decimales (en la base de datos no se redondea, el valor se deja tal cual entra de coinapi.io). La *"Cantidad venta"* (único input númerico para el usuario) se deja tal cual la introducida por el usuario sin redondeo para que pueda vender exactamene lo que deseeo o bien todo lo que tenga de esa cripto en concreto.

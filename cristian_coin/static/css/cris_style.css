@@ -105,12 +105,10 @@ body {
 }
 
 #ghefe {
-    float: right;
-    width: 100px;
-    height: 150px;
-    position:relative;
-    top: 160px;
-    left: 120px;
+
+    width: 180px;
+    height: 220px;
+
 }
 
 #status_table {
@@ -120,4 +118,8 @@ body {
 
 #section_status {
     margin-bottom: 0px;
+}
+
+.parrafo_promo {
+    text-align: center;
 }

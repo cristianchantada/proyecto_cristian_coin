@@ -62,6 +62,8 @@ def secure_operation(dict_validated_operation):
     saved_operation = db_select_fetchall("SELECT moneda_from, quantity_from, moneda_to, quantity_to, date, time, unitary_prize FROM stand_by_operation_table;")
     db_delete("DELETE FROM stand_by_operation_table;")
 
+    if not saved_operation:
+        return False
     if saved_operation[0] == (dict_validated_operation["moneda_from"], dict_validated_operation["quantity_from"], dict_validated_operation["moneda_to"],dict_validated_operation["quantity_to"], dict_validated_operation["date"], dict_validated_operation["time"], dict_validated_operation["unitary_prize"]):
         return True
     return False 
