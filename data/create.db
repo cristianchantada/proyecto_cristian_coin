@@ -6,7 +6,8 @@ CREATE TABLE "operations_table" (
 	"cantidad_from"	REAL NOT NULL,
 	"moneda_to"	TEXT NOT NULL,
 	"cantidad_to"	REAL NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT) 
+	"unitary_prize"	INTEGER NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE "stand_by_operation_table" (
