@@ -4,7 +4,7 @@
 
 1. Instale las librerías necesarias de Python en su **entorno virtual** mediante el comando en consola *pip install -r requirements.txt*.
 2. Renombre los archivos *.env_template* y *config_template.py* a .env y config.py respectivamente. A continuación entre en cada uno de ellos y siga las instrucciones ahí indicadas.
-3. En la carpeta **/data** existe el archivo *create.db*, de ayuda para la creación de la base de datos de esta aplicación. Con la sintaxis de SQL ahí contenida, cree su base de datos en esta misma carpeta.
+3. En la carpeta **/data** existe el archivo *create.db*, de ayuda para la creación de la base de datos de esta aplicación. Con la sintaxis de SQL ahí contenida, cree su base de datos en esta misma carpeta, dándole al fichero de esta el nombre *operations.sqlite3*, o bien, renombre la ruta hacia él en la constante DATA_BASE del *fichero config_template.py*.
 
 ### Notas varias:
 
