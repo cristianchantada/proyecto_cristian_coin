@@ -30,7 +30,7 @@ def db_insert_antihack(query, secret_values_query):
 def coinapi_io_connect(crypto_base, crypto_quote):
     result = get(URL_COINAPI_IO_EXCHANGERATE.format(crypto_base, crypto_quote, API_KEY))
     if result.status_code != 200:
-        raise ServerConectionError(f"Ramón, has cambiado el API_KEY o la URL de coinapi.io en 'config.py'; por favor, devuelve dichas constantes a sus valores originales. Si no ha sido así, se trataría de un error 'real', tipificado como:\n\nError en la consulta de los valores de divisas: código de estado de respuesta HTTP {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
+        raise ServerConectionError(f"Ramón, has cambiado el API_KEY o la URL de coinapi.io en 'config.py'; por favor, devuelve dichas constantes a sus valores originales. Si no ha sido así, se trataría de un error 'real', tipificado como: \n\nError en la consulta de los valores de divisas: código de estado de respuesta HTTP {result.status_code}. Por favor, reinténtelo de nuevo más tarde.")
     return result.json()
 
 def calculate(coin_from, coin_to, quantity_from):
