@@ -36,11 +36,9 @@ def coinapi_io_connect(crypto_base, crypto_quote):
 def calculate(coin_from, coin_to, quantity_from):
     if coin_from != "EUR":
         try:
-            max_cripto =db_select_fetchall(f"SELECT sum(cantidad_to) FROM operations_table WHERE moneda_to = '{coin_from}'")
+            max_cripto = db_select_fetchall(f"SELECT((SELECT ifnull(sum(cantidad_to),0) FROM operations_table WHERE moneda_to = '{coin_from}') - (SELECT ifnull(sum(cantidad_from),0) FROM operations_table WHERE moneda_from = '{coin_from}'));")
             max_cripto = max_cripto[0][0]
 
-            if max_cripto == None:
-                max_cripto = 0
             if quantity_from > max_cripto:
                 raise MaxCriptoError(f"No dispone de suficientes criptomonedas '{coin_from}' para realizar la operación. Su máximo en cartera de {coin_from} son {max_cripto}.\nSi desea vender todas sus divisas, copie la cantidad y péguela en 'cantidad de moneda a vender' en el formulario de operaciones anterior.")
         except sqlite3.Error as e:
@@ -82,7 +80,7 @@ def secure_operation(dict_validated_operation):
 
 def select_all():
     try:
-        selection = db_select_fetchall("SELECT date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, unitary_prize FROM operations_table;")
+        selection = db_select_fetchall("SELECT date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, unitary_prize FROM operations_table ORDER BY date DESC, time DESC")
         return selection
     except sqlite3.Error as e:
         flash(f"Se ha producido un error en la base de datos ({e}). Por favor, contacte con el administrador o reinténtelo más tarde.")
