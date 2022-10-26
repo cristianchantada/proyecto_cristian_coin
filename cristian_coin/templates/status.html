@@ -2,6 +2,7 @@
 
 {% block pageContent %}
 <section id="section_status" class="container">
+    {% if wallet_value %}
     <table id="status_table">
         <thead>
             <th>ESTADO DE LA INVERSIÓN</th>
@@ -39,5 +40,6 @@
             </tr>
         </tbody>
     </table>
+    {% endif %}
 </section>
 {% endblock %}
