@@ -16,6 +16,6 @@
 
 * Si se necesitan más apikey por haber consumido las 100 llamadas diarias, pídasela a Cristian Varela, posee 4 (cristianchantada@gmail.com)
 
-* EL desarrollador del presente proyecto tuvo un cacao mental al regresar commits atrás con *git reset --hard HEAD~1* para deshacer el primer intento infructuoso de crear la class EnterInDataBase. A partir de ahí bifurcó la rama varias veces sin haberse percatado de en cúal de ellas estaba, fue para atrás y hacia adelante por no encontrar el último commit actualizado y no dejarle hacer push. Cuando se recuperó y ordenó el proyecto de nuevo, creo la rama *"hacia_entrega"*. Es el último commit de esta rama con el que corregir el proyecto.
+* EL desarrollador del presente proyecto tuvo un cacao mental al regresar commits atrás con *git reset --hard HEAD~1* para deshacer el primer intento infructuoso de crear la class EnterInDataBase. A partir de ahí bifurcó la rama varias veces sin haberse percatado de en cúal de ellas estaba, fue para atrás y hacia adelante por no encontrar el último commit actualizado y no dejarle hacer push. Cuando se recuperó y ordenó el proyecto de nuevo, creo la rama *"master"*. Es el último commit de esta rama con el que corregir el proyecto.
 
 * Si tiene cualquier duda de funcionamiento póngase en contacto con el desarrollador mediante el email facilitado anteriormente.
